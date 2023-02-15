@@ -1,0 +1,37 @@
+﻿ <div class="col col-8">
+        <div class="card mb-6 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">List of Devices</h4>
+          </div>
+          <div class="card-body">
+
+            <AddDevice AddDevices="AddDevices"></AddDevice>
+
+
+           <ul id="listOfDevices" class="list-group align-self-sm-stretch mt-4">
+            @foreach(var item in ListOfDevice)
+            {
+              <li class="list-group-item @(item.Completed ? "change" : "")">@item.Text<button class="btn btn-danger">X</button></li>
+            }
+           </ul>
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+@code {
+
+    @code {
+
+        [Parameter]
+        public IEnumerable<Item> ListOfDevice { get; set; } = new List<Item>();
+
+        [Parameter]
+        public EventCallback<string> AddDevices { get; set; }
+
+    }
+
+}

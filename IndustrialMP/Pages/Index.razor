@@ -1,0 +1,47 @@
+﻿@page "/"
+@using IndustrialMP.Components
+@using IndustrialMP.Services;
+
+
+
+<div class="row justify-content-md-center">
+
+<DashBoard></DashBoard>
+
+
+<DailyStats></DailyStats>
+    <ListOfDevices AddDevices="AddDevices" ListOfDevice="ListOfDevice"></ListOfDevices>
+
+
+</div>
+
+
+@code {
+    private List<Item> ListOfDevice; // = new List<Item>();
+    //public IEnumerable<Item> ListOfDevice { get; set; } = new List<Item>();
+
+    [Inject]
+    public IManagementCentralClient ManagementCentralClient { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //  throw new ArgumentException();
+        ListOfDevice = (await ManagementCentralClient.GetAsync()).ToList();
+    }
+
+    private async Task AddDevices(string text)
+    {
+        //Validate
+        //Create Item
+        //Post Item
+        //Check reponse
+        //Add Item to UI
+        var item = new Item
+            {
+                Text = text
+            };
+
+        ListOfDevice.Add(item);
+
+    }
+}
