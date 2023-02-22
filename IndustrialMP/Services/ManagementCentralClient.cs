@@ -11,7 +11,6 @@ namespace IndustrialMP.Services
         public ManagementCentralClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
-           // this.httpClient.BaseAddress = new Uri("https://localhost:7297");
             this.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
