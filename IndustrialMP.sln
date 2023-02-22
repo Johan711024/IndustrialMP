@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndustrialMP", "IndustrialM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndustrialMP.Shared", "IndustrialMP.Shared\IndustrialMP.Shared.csproj", "{A91923E2-3D53-4138-BB41-7E5611F8770F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndustrialMP.Data", "IndustrialMP.Data\IndustrialMP.Data.csproj", "{CF3AC45C-3A26-4BDF-ABC8-98EACA9DDE17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndustrialMP.Api", "IndustrialMP.Api\IndustrialMP.Api.csproj", "{21580F49-475E-43FD-BDB0-3286A5887FA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A91923E2-3D53-4138-BB41-7E5611F8770F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A91923E2-3D53-4138-BB41-7E5611F8770F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A91923E2-3D53-4138-BB41-7E5611F8770F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3AC45C-3A26-4BDF-ABC8-98EACA9DDE17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3AC45C-3A26-4BDF-ABC8-98EACA9DDE17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3AC45C-3A26-4BDF-ABC8-98EACA9DDE17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3AC45C-3A26-4BDF-ABC8-98EACA9DDE17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21580F49-475E-43FD-BDB0-3286A5887FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21580F49-475E-43FD-BDB0-3286A5887FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21580F49-475E-43FD-BDB0-3286A5887FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21580F49-475E-43FD-BDB0-3286A5887FA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

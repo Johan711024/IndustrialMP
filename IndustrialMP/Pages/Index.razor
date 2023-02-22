@@ -10,7 +10,7 @@
 
 
 <DailyStats></DailyStats>
-    <ListOfDevices AddDevices="AddDevices" ListOfDevice="ListOfDevice"></ListOfDevices>
+    <ListOfDevices AddDevices="AddDevices"  ListOfDevice="ListOfDevice"></ListOfDevices>
 
 
 </div>
@@ -18,7 +18,7 @@
 
 @code {
     private List<Item> ListOfDevice; // = new List<Item>();
-    //public IEnumerable<Item> ListOfDevice { get; set; } = new List<Item>();
+                                     //public IEnumerable<Item> ListOfDevice { get; set; } = new List<Item>();
 
     [Inject]
     public IManagementCentralClient ManagementCentralClient { get; set; } = default!;
@@ -44,4 +44,5 @@
         ListOfDevice.Add(item);
 
     }
+
 }

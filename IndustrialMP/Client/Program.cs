@@ -1,9 +1,8 @@
-using IndustrialMP;
 using IndustrialMP.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-namespace IndustrialMP
+namespace IndustrialMP.Client
 {
     public class Program
     {
@@ -15,7 +14,7 @@ namespace IndustrialMP
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-            builder.Services.AddHttpClient<IManagementCentralClient, ManagementCentralMockClient>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+            builder.Services.AddHttpClient<IManagementCentralClient, ManagementCentralClient>();
 
             await builder.Build().RunAsync();
         }

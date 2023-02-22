@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "IndustrialMP.Shared": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50376;http://localhost:50377"
+    }
+  }
+}

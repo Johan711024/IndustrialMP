@@ -7,16 +7,19 @@
 
             <AddDevice AddDevices="AddDevices"></AddDevice>
 
-
            <ul id="listOfDevices" class="list-group align-self-sm-stretch mt-4">
             @foreach(var item in ListOfDevice)
             {
-              <li class="list-group-item @(item.Completed ? "change" : "")">@item.Text<button class="btn btn-danger">X</button></li>
+              <li @onclick="async () => await Completed(item)" class="list-group-item @(item.Completed ? "change" : "")">
+                  @item.Text
+                        <button  @onclick="async () => await OnRemoveDevice(item)"  @onclick:stopPropagation="true" class="btn btn-danger">
+
+                      X
+                      
+                        </button>
+              </li>
             }
            </ul>
-
-
-
 
           </div>
         </div>
@@ -26,11 +29,29 @@
 
     @code {
 
+
+
         [Parameter]
-        public IEnumerable<Item> ListOfDevice { get; set; } = new List<Item>();
+        public List<Item> ListOfDevice { get; set; } = new List<Item>();
 
         [Parameter]
         public EventCallback<string> AddDevices { get; set; }
+
+        [Parameter]
+        public EventCallback<string> RemoveDevice { get; set; }
+
+        private async Task Completed(Item item)
+        {
+            item.Completed = item.Completed ? false : true;
+        }
+        
+
+
+        public async Task OnRemoveDevice(Item item)
+        {
+            ListOfDevice.Remove(item);           
+        }
+
 
     }
 

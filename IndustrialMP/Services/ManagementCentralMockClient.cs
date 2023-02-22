@@ -17,22 +17,23 @@ namespace IndustrialMP.Services
             {
                 new Item()
                 {
-                    Text = "Banan"
+                    Text = "Moist Sensor"
                 },
                 new Item()
                 {
-                    Text = "Apelsin"
+                    Text = "Excavator Top-sensor"
                 },
                 new Item()
                 {
-                    Text = "Mjölk",
+                    Text = "3D printer",
                     Completed = true
                 },
                 new Item()
                 {
-                    Text = "Bröd"
+                    Text = "AR rebuild"
                 }
             };
         }
+        
     }
 }
