@@ -1,4 +1,7 @@
-﻿ <div class="col col-8">
+﻿@using IndustrialMP.Services;
+@inject IManagementCentralClient managementCentralClient
+
+<div class="col col-8">
         <div class="card mb-6 rounded-3 shadow-sm">
           <div class="card-header py-3">
             <h4 class="my-0 fw-normal">List of Devices</h4>
@@ -12,7 +15,7 @@
             {
               <li @onclick="async () => await Completed(item)" class="list-group-item @(item.Completed ? "change" : "")">
                   @item.Text
-                        <button  @onclick="async () => await OnRemoveDevice(item)"  @onclick:stopPropagation="true" class="btn btn-danger">
+                        <button @onclick="async () => await Delete(item)" @onclick:stopPropagation="true" class="btn btn-danger">
 
                       X
                       
@@ -40,9 +43,24 @@
         [Parameter]
         public EventCallback<string> RemoveDevice { get; set; }
 
+        
+
+
         private async Task Completed(Item item)
         {
+            if (item is null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
             item.Completed = item.Completed ? false : true;
+
+            var isCompleted = await managementCentralClient.PutAsync(item);
+
+            if (!isCompleted)
+                item.Completed = item.Completed ? false : true;
+
+            //Handle Errors
         }
         
 
@@ -50,6 +68,26 @@
         public async Task OnRemoveDevice(Item item)
         {
             ListOfDevice.Remove(item);           
+        }
+
+
+
+
+
+        private async Task Delete(Item item)
+        {
+            if (item is null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            var isRemoved = await managementCentralClient.RemoveAsync(item.Id);
+
+            if (isRemoved)
+            {
+                ListOfDevice.Remove(item);
+            }
+
         }
 
 

@@ -12,9 +12,13 @@ namespace IndustrialMP.Client
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-           // builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://industrialmpapi.azurewebsites.net") });
+            // builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://industrialmpapi.azurewebsites.net") });
 
-            builder.Services.AddHttpClient<IManagementCentralClient, ManagementCentralClient>(client => client.BaseAddress = new Uri("https://industrialmpapi.azurewebsites.net")  );
+            //builder.Services.AddHttpClient<IManagementCentralClient, ManagementCentralClient>(client => client.BaseAddress = new Uri("https://industrialmpapi.azurewebsites.net")  );
+            //builder.Services.AddHttpClient<IManagementCentralClient, ManagementCentralClient>(client => client.BaseAddress = new Uri("http://localhost:7294"));
+
+            builder.Services.AddHttpClient<IManagementCentralClient, ManagementCentralClient>();
+
 
             await builder.Build().RunAsync();
         }
