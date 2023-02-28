@@ -4,7 +4,7 @@
 <div class="col col-8">
         <div class="card mb-6 rounded-3 shadow-sm">
           <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">List of Devices</h4>
+            <h4 class="my-0 fw-normal">Online Devices</h4>
           </div>
           <div class="card-body">
 
@@ -13,7 +13,7 @@
            <ul id="listOfDevices" class="list-group align-self-sm-stretch mt-4">
             @foreach(var item in ListOfDevice)
             {
-              <li @onclick="async () => await Completed(item)" class="list-group-item @(item.Completed ? "change" : "")">
+              <li @onclick="async () => await Online(item)" class="list-group-item @(item.Online ? "change" : "")">
                   @item.Text
                         <button @onclick="async () => await Delete(item)" @onclick:stopPropagation="true" class="btn btn-danger">
 
@@ -38,7 +38,7 @@
         public List<Item> ListOfDevice { get; set; } = new List<Item>();
 
         [Parameter]
-        public EventCallback<string> AddDevices { get; set; }
+        public EventCallback<CreateItem> AddDevices { get; set; }
 
         [Parameter]
         public EventCallback<string> RemoveDevice { get; set; }
@@ -46,19 +46,19 @@
         
 
 
-        private async Task Completed(Item item)
+        private async Task Online(Item item)
         {
             if (item is null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            item.Completed = item.Completed ? false : true;
+            item.Online = item.Online ? false : true;
 
             var isCompleted = await managementCentralClient.PutAsync(item);
 
             if (!isCompleted)
-                item.Completed = item.Completed ? false : true;
+                item.Online = item.Online ? false : true;
 
             //Handle Errors
         }

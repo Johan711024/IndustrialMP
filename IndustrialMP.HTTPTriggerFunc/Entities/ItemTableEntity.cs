@@ -12,7 +12,7 @@ namespace IndustrialMP.HTTPTriggerFunc.Entities
     public class ItemTableEntity : BaseTableEntity
     {
         public string Text { get; set; } = string.Empty;
-        public bool Completed { get; set; }
+        public bool Online { get; set; }
     }
 
     public class BaseTableEntity : ITableEntity

@@ -26,7 +26,7 @@ namespace IndustrialMP.Services
                 new Item()
                 {
                     Text = "3D printer",
-                    Completed = true
+                    Online = true
                 },
                 new Item()
                 {

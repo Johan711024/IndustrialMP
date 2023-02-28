@@ -14,7 +14,7 @@ namespace IndustrialMP.HTTPTriggerFunc.Extensions
         {
             return new ItemTableEntity
             {
-                Completed = item.Completed,
+                Online = item.Online,
                 Text = item.Text,
                 RowKey = item.Id
             };
@@ -26,7 +26,7 @@ namespace IndustrialMP.HTTPTriggerFunc.Extensions
             {
                 Id = itemTable.RowKey,
                 Text = itemTable.Text,
-                Completed = itemTable.Completed
+                Online = itemTable.Online
             };
         }
     }

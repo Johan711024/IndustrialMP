@@ -17,7 +17,8 @@ namespace IndustrialMP.HTTPTriggerFunc
     public class ToDoFuncApi
     {
         private readonly ILogger _logger;
-        
+
+        public List<Item> DeletedItemsQueu { get; set; } = new List<Item>();
 
         public ToDoFuncApi(ILoggerFactory loggerFactory)
         {
@@ -100,6 +101,7 @@ namespace IndustrialMP.HTTPTriggerFunc
 
 
         [Function("Delete Item")]
+        
         public async Task<HttpResponseData> Delete(
             [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "devices/{id}")] HttpRequestData req,
             [FromRoute] string id)
@@ -108,6 +110,15 @@ namespace IndustrialMP.HTTPTriggerFunc
 
             var tableClient = GetTableClient();
             var response = req.CreateResponse();
+
+            var itemEntity = tableClient.QueryAsync<ItemTableEntity>(i => i.RowKey == id && i.PartitionKey == TableNames.PartionKey);
+
+            //if(itemEntity == null)
+            //{
+            //    response.StatusCode = HttpStatusCode.NotFound;
+            //}
+
+            //var item = Mapper.ToItem(itemEntity);
 
 
             var isOk = await tableClient.DeleteEntityAsync(TableNames.PartionKey, id);
@@ -118,7 +129,13 @@ namespace IndustrialMP.HTTPTriggerFunc
                 return response;
             }
 
+            //DeletedItemsQueu.Add(item);
+
+
+
             response.StatusCode = HttpStatusCode.NoContent;
+
+            //response = item;
 
             return response;
         }
@@ -140,7 +157,7 @@ namespace IndustrialMP.HTTPTriggerFunc
 
 
         [Function("Timer")]
-        [QueueOutput("DeletedItems", Connection = "AzureWebJobsStorage")]
+        [QueueOutput("RemovedDevices", Connection = "AzureWebJobsStorage")]
         public async Task<IEnumerable<ItemTableEntity>> Timer(
           [TimerTrigger("0 */1 * * * *")] TimerInfo timerInfo,
           FunctionContext context)
@@ -150,7 +167,7 @@ namespace IndustrialMP.HTTPTriggerFunc
 
             var tableClient = GetTableClient();
 
-            var res = tableClient.QueryAsync<ItemTableEntity>(i => i.Completed == true);
+            var res = tableClient.QueryAsync<ItemTableEntity>(i => i.Online == true);
 
             var result = new List<ItemTableEntity>();
 
@@ -161,18 +178,19 @@ namespace IndustrialMP.HTTPTriggerFunc
                 _logger.LogInformation($"The {item.Text} is removed and added to the queue");
             }
 
-
+            //result är kön RemovedDevices
             return result;
 
         }
 
         [Function("FromQueue")]
-        [BlobOutput("completed/{rand-guid}")]
+        [BlobOutput("removed/{rand-guid}")]
         public string FromQueue(
-           [QueueTrigger("DeletedItems", Connection = "AzureWebJobsStorage")] ItemTableEntity itemTable)
+           [QueueTrigger("RemovedDevices", Connection = "AzureWebJobsStorage")] ItemTableEntity itemTable)
         {
             _logger.LogInformation($"C# Queue trigger function processed");
 
+            //det borttagna elementet i kön sparas i blob
             return $"Item: {itemTable.Text} was processed at: {DateTime.Now}.txt";
 
         }

@@ -29,20 +29,27 @@
         ListOfDevice = (await ManagementCentralClient.GetAsync()).ToList();
     }
 
-    private async Task AddDevices(string text)
+   
+
+    private async Task AddDevices(CreateItem createItem)
     {
         //Validate
         //Create Item
         //Post Item
         //Check reponse
         //Add Item to UI
-        var item = new Item
-            {
-                Text = text
-            };
+
+        if (createItem is null)
+        {
+            throw new ArgumentNullException(nameof(createItem));
+        }
+
+        var item = await ManagementCentralClient.PostAsync(createItem);
+
+        if (item is null)
+            throw new ArgumentNullException(nameof(item));
 
         ListOfDevice.Add(item);
-
     }
 
 }
